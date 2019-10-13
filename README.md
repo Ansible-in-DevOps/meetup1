@@ -37,6 +37,7 @@ $ docker-compose --version
 
 ````bash
 $ git clone https://github.com/Ansible-in-DevOps/meetup1.git
+$ cd ./meetup1/
 $ sudo set -a
 $ sudo source ./conf/.env 
 $ sudo docker-compose -f docker-compose_ansible.yml up -d --build
