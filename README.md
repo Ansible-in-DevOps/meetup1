@@ -6,6 +6,8 @@ https://www.meetup.com/pl-PL/Ansible-in-DevOps-Torun-Bydgoszcz/events/nfpfjryznb
 
 1. Zainstaluj paczki docker-ce oraz docker-compose do uruchomienia kontenerów. 
 
+Uwaga: **Twój użytkownik Linux powinnien móc używać sudo na root-a.** (https://dug.net.pl/tekst/63/przewodnik_po_sudo/)
+
 RedHat 7/CentOS 7
 ````bash
 $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
