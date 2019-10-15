@@ -58,7 +58,7 @@ a8329907eddb        meetup1_ansible_server   "/usr/local/bin/entr…"   About a 
 - SSH 
 
 ````bash
-$ sudo docker network inspect meetup1_ansible 
+$ sudo docker network inspect prelekcjanr2_ansible 
 [
     {
         "Name": "meetup1_ansible",
