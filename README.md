@@ -316,6 +316,7 @@ Removing ansible-server ... done
 Removing apache-server-1 ... done
 Removing apache-server-2 ... done
 Removing network meetup1_ansible
+$ cd ../../
 $ sudo rm -rf ./meetup1/
 ````
 # Prelekcja nr 3 -> Ansible Tower.
