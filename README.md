@@ -24,7 +24,7 @@ Ubuntu 18/Debian 9
 ````bash
 $ sudo apt update
 $ sudo apt install apt-transport-https ca-certificates curl software-properties-common
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 $ sudo apt update
 $ sudo apt install docker-ce
@@ -38,7 +38,9 @@ $ docker-compose --version
 2. Uruchom kontenery 
 
 ````bash
-$ git clone https://github.com/Ansible-in-DevOps/meetup1.git
+$ sudo mkdir /opt/ansible
+$ cd /opt/ansible
+$ sudo git clone https://github.com/Ansible-in-DevOps/meetup1.git
 $ cd ./meetup1/
 $ sudo set -a
 $ sudo source ./conf/.env 
