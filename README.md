@@ -51,7 +51,7 @@ CONTAINER ID        IMAGE                    COMMAND                  CREATED   
 a8329907eddb        meetup1_ansible_server   "/usr/local/bin/entr…"   About a minute ago   Up About a minute                         ansible-server
 284518bd33fd        meetup1_apache_1         "/usr/local/bin/entr…"   4 minutes ago        Up 4 minutes        0.0.0.0:801->80/tcp   apache-server-1
 31b0739b73a7        meetup1_apache_2         "/usr/local/bin/entr…"   4 minutes ago        Up 4 minutes        0.0.0.0:802->80/tcp   apache-server-2
-#exit
+$ exit
 ````
 
 3. Logowanie się do serwera Ansible (dwie metody):
