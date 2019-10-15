@@ -1,0 +1,30 @@
+---
+# Usage: ansible-playbook -i inventory create-venv.yml --ask-vault-pass -e "ansible_venv_name=meetup-1 ansible_core_version=2.5.6"
+- name: Create Ansible Tower Virtualenv
+
+  hosts: all
+  gather_facts: no
+  become: true
+  become_user: root
+  become_method: sudo
+
+  vars:
+   python_packages:
+    - name: ansible
+      version: "{{ ansible_core_version }}"
+    - name: psutil
+      version: latest
+
+  tasks:
+
+   - name: Create python venv {{ ansible_venv_name }}
+     pip:
+      umask: "0022"
+      name:  "{{ item.name }}"
+      state: present
+      version: "{{ item.version }}"
+      virtualenv: "/var/lib/awx/venv/{{ ansible_venv_name }}"
+      virtualenv_site_packages: no
+     loop: "{{ python_packages }}"
+
+# end.

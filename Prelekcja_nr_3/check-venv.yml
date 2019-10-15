@@ -1,0 +1,41 @@
+---
+# Usage: ansible-playbook -i inventory create-venv.yml --ask-vault-pass -e "ansible_venv_name=meetup-1 ansible_core_version=2.5.6"
+# Note: encrypted vars.yml should contain variables for: tower_host, tower_username and tower_password
+- name: Check Ansible Tower venv used for playbooks execution
+
+  hosts: all
+  gather_facts: no
+     
+  tasks:
+ 
+  - name: Include vars for Tower access
+    include_vars:
+     file: vars.yml
+    delegate_to: localhost
+    run_once: true
+    no_log: true
+    
+  - name: Check Tower setup
+    uri:
+     url: "{{ tower_host }}/api/v2/config/?format=json"
+     validate_certs: "{{ tower_verify_ssl }}"
+     user: "{{ tower_username }}"
+     password: "{{ tower_password }}"
+     method: GET
+     force_basic_auth: yes
+     headers:
+      content-type: 'aplication/json'
+     return_content: yes
+    register: a_config_output
+    delegate_to: localhost
+    run_once: true
+    no_log: true
+    
+  - name: Show Tower setup
+    debug:
+     var: a_config_output.json.custom_virtualenvs
+    delegate_to: localhost
+    run_once: true
+
+     
+## end.

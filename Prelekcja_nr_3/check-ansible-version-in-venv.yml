@@ -1,0 +1,22 @@
+---
+# Usage: ansible-playbook -i inventory check-ansible-version-in-venv.yml
+- hosts: all
+  gather_facts: no
+
+  tasks:
+
+  - name: Check Ansible version on Ansible Tower in venv
+    command: ansible --version
+    register: a_ansible_version
+    delegate_to: localhost
+
+  - name: Register variable
+    debug:
+     var: "{{ a_ansible_version }}"
+    no_log: true
+
+  - name: Display ansible version on Ansible Tower in venv
+    debug:
+     msg: "{{ a_ansible_version.stdout_lines }}"
+
+ # end.

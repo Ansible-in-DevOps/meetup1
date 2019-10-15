@@ -1,0 +1,26 @@
+---
+# Usage: ansible-playbook -i inventory install-python-module-in-venv.yml
+# Note: Playbook installs modules like: ansible-tower-cli, winrm and kerberos.
+# You can add more packages to the list or use variable for that.
+- hosts: all
+  gather_facts: no
+  become: yes
+  become_user: root
+  #vars:
+   #a_https_proxy: "https://"
+
+  tasks:
+
+  - name: Install python packages in default Asnible Tower venv
+    #environment:
+     #https_proxy: "{{ a_https_proxy }}"
+    pip:
+     name:
+       - ansible-tower-cli
+       - winrm
+       - kerberos
+     state: latest
+     umask: "0022"
+     virtualenv: /var/lib/awx/venv/ansible
+
+ # end.
