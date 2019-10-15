@@ -305,3 +305,18 @@ Removing apache-server-2 ... done
 Removing network meetup1_ansible
 $ sudo rm -rf ./meetup1/
 ````
+# Prelekcja nr 3 -> Ansible Tower.
+
+Hi AIDO MeetUp Team.
+I'm presenting here simple materials used during meetup conference.
+
+Playbooks:
+
+create-venv.yml - created python virtualenv on Ansible Tower Cluster Nodes and on Isolated Instances Nodes
+check-vnev-yml - displays installed python virtualenvs on Ansible Tower Node
+
+check-ansible-version-in-venv.yml - check version of Ansible Core used for Playbook execution
+install-python-module-in-venv.yml - simple example how to install python modules inside virtualenv
+
+Best Regards.
+W.
