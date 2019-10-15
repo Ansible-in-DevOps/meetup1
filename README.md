@@ -253,8 +253,11 @@ apache2 | SUCCESS => {
     "changed": false
 }
 ````
+8. Sprawdź co się wyświetla na stronie WWW na lokalnym IP.
 
-8. Zmiany na wielu serwerach.
+"Apache2 Ubuntu Default Page"
+
+9. Zmiany na wielu serwerach.
 
 ````bash
 aido@ansible-server-local:/opt/local/ansible$ cat update_www.yml 
@@ -294,9 +297,15 @@ META: ran handlers
 PLAY RECAP *******************************************************************************************************************************************
 apache1                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 apache2                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
+aido@ansible-server-local:/opt/local/ansible$ exit
 ````
-9. Sprzątanie po warsztacie.
+10. Sprawdź co się wyświetla na stronie WWW na lokalnym IP po zmianach.
+
+:801 "apache-local-1"
+
+:802 "apache-local-2"
+
+11. Sprzątanie po warsztacie.
 
 ````bash
 $ sudo docker-compose -f docker-compose_ansible.yml down
