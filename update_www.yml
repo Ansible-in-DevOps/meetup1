@@ -1,5 +1,0 @@
----
-- hosts: apache
-  tasks:
-  - name: change content on apache 
-    shell: echo '{{ ansible_hostname }}' > /var/www/html/index.html   
