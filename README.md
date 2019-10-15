@@ -43,10 +43,10 @@ $ cd /opt/ansible
 $ sudo git clone https://github.com/Ansible-in-DevOps/meetup1.git
 $ cd ./meetup1/Prelekcja_nr_2
 $ sudo -s
-# set -a
-# source ./conf/.env 
-# docker-compose -f docker-compose_ansible.yml up -d --build
-# docker ps
+$ set -a
+$ source ./conf/.env 
+$ docker-compose -f docker-compose_ansible.yml up -d --build
+$ docker ps
 CONTAINER ID        IMAGE                    COMMAND                  CREATED              STATUS              PORTS                 NAMES
 a8329907eddb        meetup1_ansible_server   "/usr/local/bin/entr…"   About a minute ago   Up About a minute                         ansible-server
 284518bd33fd        meetup1_apache_1         "/usr/local/bin/entr…"   4 minutes ago        Up 4 minutes        0.0.0.0:801->80/tcp   apache-server-1
