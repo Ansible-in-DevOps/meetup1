@@ -1,0 +1,23 @@
+---
+
+- name: Unarchive deployed package
+  become: yes
+  unarchive:
+    src: "{{ WEBSITE_PACKAGE }}"
+    dest: /var/www/html
+
+- name: Apply template
+  become: yes
+  template:
+    src: index.html.yml
+    dest: /var/www/html/index.html
+
+- name: check website
+  uri:
+    url: http://localhost
+    return_content: yes
+  register: result
+  until: result.content.find("Coming Soon!") != -1
+  retries: 10
+  delay: 5
+  ignore_errors: yes #DOIT better # Is it needed ?? Why ?

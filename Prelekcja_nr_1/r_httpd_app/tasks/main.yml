@@ -1,0 +1,7 @@
+---
+- include_tasks: install_httpd.yml 
+- include_tasks: switch_firewalld_to_iptables_rhel.yml
+  when: ansible_os_family == "RedHat"
+- include_tasks: set_firewall_debian.yml 
+  when: ansible_os_family == "Debian"
+- include_tasks: deploy_app.yml

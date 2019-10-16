@@ -1,0 +1,54 @@
+---
+- name: Create Iptables directory on Debian
+  become: yes
+  file:
+    path: /etc/iptables
+    state: directory
+    owner: root
+    group: root
+
+- name: Apply firewall template on Debian
+  become: yes
+  template:
+    src: iptables.j2
+    dest: /etc/iptables/rules.v4
+
+- name: install iptables-persistent
+  become: yes
+  apt:
+    name: iptables-persistent
+    state: latest 
+
+- name: Iptables restore script
+  become: yes
+  template:
+    src: iptables.service
+    dest: /etc/systemd/system
+
+- name: Load iptables persistan
+  become: yes
+  service:
+    name: iptables
+    state: restarted
+    enabled: yes
+
+  
+#- name: Opening Firewall
+#  become: yes
+#  iptables:
+#    chain: INPUT
+#    protocol: tcp
+#    destination_port: "{{ item }}"
+#    ctstate: NEW
+#    syn: match
+#    jump: ACCEPT
+#    state: present
+#  loop:
+#    - 22
+#    - 80
+
+#- name: Policy DROP
+#  become: yes
+#  iptables:
+#    chain: INPUT
+#    policy: DROP

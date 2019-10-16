@@ -1,0 +1,11 @@
+
+<html lang=pl>
+        <head>
+                <link rel="stylesheet" href="main.css">
+                <title>AIDO</title>
+        </head>
+
+        <body>
+                <p>Coming Soon! Request goes from {{  ansible_hostname }} - IP:{{ ansible_default_ipv4.address }}</p>
+        </body>
+</html>

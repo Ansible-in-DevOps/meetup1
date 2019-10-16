@@ -1,0 +1,34 @@
+---
+- name: stopping and disabling firewalld
+  become: yes
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+
+- name: Removing firewalld
+  become: yes
+  yum:
+    pkg: firewalld
+    state: removed
+  ignore_errors: yes
+
+- name: installing iptables
+  become: yes
+  yum:
+    pkg: iptables-services
+    state: latest
+
+- name: Apply Iptables template
+  become: yes
+  template:
+    src: iptables.j2
+    dest: /etc/sysconfig/iptables
+ 
+- name: enable iptables
+  become: yes
+  service:
+    name: iptables
+    state: restarted
+    enabled: yes

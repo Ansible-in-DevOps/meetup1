@@ -1,0 +1,3 @@
+---
+# defaults file for r_httpd_app
+WEBSITE_PACKAGE: "index.zip"

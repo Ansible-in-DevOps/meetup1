@@ -1,10 +1,58 @@
 # meetup1
 https://www.meetup.com/pl-PL/Ansible-in-DevOps-Torun-Bydgoszcz/events/nfpfjryznbvb/
 
+# Prelekcja nr 1 -> Czym jest Ansible?
+
+1. Przygotowanie środowiska
+
+
+````
+Zainstaluj oravle VirtualBox - https://www.virtualbox.org/
+Zainstaluj HashiCorp Vagrant https://www.vagrantup.com/
+````
+
+Tworzenie wirtualnych maszyn:
+````
+git clone https://github.com/Ansible-in-DevOps/meetup1
+cd meetup1/Prelekcja_nr_1
+vagrant.exe up
+````
+
+Kiedy wirtualne maszyny są gotowe zaloguj się na niego
+````
+ssh vagrant@192.168.57.51    # Hasło vagrant
+ssh-keygen -t rsa            # Bez hasła
+sudo su -
+echo -en "192.168.57.51 w1\n192.168.57.52 w2\n192.168.57.53 w3\n" >> /etc/hosts
+exit #Switch off from root
+ssh-copy-id vagrant@localhost
+ssh-copy-id ansiblesrv@w1 #Hasło ansiblesrv
+ssh-copy-id ansiblesrv@w2
+ssh-copy-id ansiblesrv@w3
+sudo yum install epel-release vim ansible git -y
+sudo yum update -y #Ansible 2.4 nie wspiera wyrażenia loop - patrz https://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.5.html
+git clone https://github.com/Ansible-in-DevOps/meetup1
+cd meetup1/Prelekcja_nr_1
+````
+
+Pobranie repozytoriów na systemie debian
+````
+ansible w3 -a "apt update" -b
+````
+
+Sprawdź czy ansible może polączyć się do wszystkich węzłów z uprawnieniami root
+````
+ansible all -m ping -b
+````
+
+Uruchom Playbok:
+````
+ansible-playbook deploy.yml
+````
 
 # Prelekcja nr 2 -> instalacja środowiska Ansible w Dokerze.
 
-1. Zainstaluj paczki docker-ce oraz docker-compose do uruchomienia kontenerów. 
+1. Zainstaluj paczki docker-ce oraz docker-compose do uruchomienia kontenerów.
 
 Uwaga: **Twój użytkownik Linux powinnien móc używać sudo na root-a.** (https://dug.net.pl/tekst/63/przewodnik_po_sudo/)
 
@@ -35,7 +83,7 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker-compose --version
 ````
 
-2. Uruchom kontenery 
+2. Uruchom kontenery
 
 ````bash
 $ sudo mkdir /opt/ansible
@@ -44,7 +92,7 @@ $ sudo git clone https://github.com/Ansible-in-DevOps/meetup1.git
 $ cd ./meetup1/Prelekcja_nr_2
 $ sudo -s
 $ set -a
-$ source ./conf/.env 
+$ source ./conf/.env
 $ docker-compose -f docker-compose_ansible.yml up -d --build
 $ docker ps
 CONTAINER ID        IMAGE                    COMMAND                  CREATED              STATUS              PORTS                 NAMES
@@ -55,10 +103,10 @@ $ exit
 ````
 
 3. Logowanie się do serwera Ansible (dwie metody):
-- SSH 
+- SSH
 
 ````bash
-$ sudo docker network inspect prelekcjanr2_ansible 
+$ sudo docker network inspect prelekcjanr2_ansible
 [
     {
         "Name": "meetup1_ansible",
@@ -117,43 +165,43 @@ $ ssh aido@172.1.0.10
 - docker exec
 
 ````bash
-$ sudo docker exec -it -u aido ansible-server bash 
+$ sudo docker exec -it -u aido ansible-server bash
 ````
 
-4. Wymiana kluczy z serwera Ansible do serwerów Apache. 
+4. Wymiana kluczy z serwera Ansible do serwerów Apache.
 
 ````
-aido@ansible-server-local:/opt/local/ansible$ ssh-keygen 
+aido@ansible-server-local:/opt/local/ansible$ ssh-keygen
 aido@ansible-server-local:/opt/local/ansible$ ssh-copy-id 172.1.0.20
 Are you sure you want to continue connecting (yes/no)? yes
-aido@172.1.0.20's password: 
+aido@172.1.0.20's password:
 
 Number of key(s) added: 1
 
 
 aido@ansible-server-local:/opt/local/ansible$ ssh-copy-id 172.1.0.30
 Are you sure you want to continue connecting (yes/no)? yes
-aido@172.1.0.30's password: 
+aido@172.1.0.30's password:
 
 Number of key(s) added: 1
 ````
 
-5. Test połączenia między serwerami. 
+5. Test połączenia między serwerami.
 
 ````bash
 aido@ansible-server-local:/opt/local/ansible$ ansible apache -m ping   
 apache2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "ping": "pong"
 }
 apache1 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "ping": "pong"
 }
 ````
@@ -203,13 +251,13 @@ Escalation succeeded
 apache2 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python3"
-    }, 
-    "changed": false, 
+    },
+    "changed": false,
     "invocation": {
         "module_args": {
             "data": "pong"
         }
-    }, 
+    },
     "ping": "pong"
 }
 META: ran handlers
@@ -221,35 +269,35 @@ META: ran handlers
 ````bash
 aido@ansible-server-local:/opt/local/ansible$ ansible -m setup apache1
 ...
-        "ansible_fqdn": "apache-local-1", 
-        "ansible_hostname": "apache-local-1", 
-        "ansible_hostnqn": "", 
-        "ansible_is_chroot": false, 
-        "ansible_iscsi_iqn": "", 
-        "ansible_kernel": "4.9.0-9-amd64", 
-        "ansible_local": {}, 
+        "ansible_fqdn": "apache-local-1",
+        "ansible_hostname": "apache-local-1",
+        "ansible_hostnqn": "",
+        "ansible_is_chroot": false,
+        "ansible_iscsi_iqn": "",
+        "ansible_kernel": "4.9.0-9-amd64",
+        "ansible_local": {},
         "ansible_lsb": {
-            "codename": "disco", 
-            "description": "Ubuntu 19.04", 
-            "id": "Ubuntu", 
-            "major_release": "19", 
+            "codename": "disco",
+            "description": "Ubuntu 19.04",
+            "id": "Ubuntu",
+            "major_release": "19",
             "release": "19.04"
-        }, 
-        "ansible_machine": "x86_64", 
+        },
+        "ansible_machine": "x86_64",
 ...
 aido@ansible-server-local:/opt/local/ansible$ ansible -m setup -a 'filter=*ansible_hostname*' apache
 apache1 | SUCCESS => {
     "ansible_facts": {
-        "ansible_hostname": "apache-local-1", 
+        "ansible_hostname": "apache-local-1",
         "discovered_interpreter_python": "/usr/bin/python3"
-    }, 
+    },
     "changed": false
 }
 apache2 | SUCCESS => {
     "ansible_facts": {
-        "ansible_hostname": "apache-local-2", 
+        "ansible_hostname": "apache-local-2",
         "discovered_interpreter_python": "/usr/bin/python3"
-    }, 
+    },
     "changed": false
 }
 ````
@@ -261,11 +309,11 @@ apache2 | SUCCESS => {
 
 ````bash
 aido@ansible-server-local:~$ cd /opt/local/ansible
-aido@ansible-server-local:/opt/local/ansible$ cat update_www.yml 
+aido@ansible-server-local:/opt/local/ansible$ cat update_www.yml
 ---
 - hosts: apache
   tasks:
-  - name: change content on apache 
+  - name: change content on apache
     shell: echo '{{ ansible_hostname }}' > /var/www/html/index.html   
 
 aido@ansible-server-local:/opt/local/ansible$ ansible-playbook -vv update_www.yml       

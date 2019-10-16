@@ -1,0 +1,15 @@
+---
+- hosts: test
+  vars:
+    WEBSITE_PACKAGE: "index.zip" 
+  roles:
+    - r_httpd_app
+
+- hosts: prod
+  vars:
+    WEBSITE_PACKAGE: "index.zip" 
+  serial:
+    - 1   
+    - 50% 
+  roles:
+    - r_httpd_app

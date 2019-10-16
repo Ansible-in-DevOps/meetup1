@@ -1,0 +1,9 @@
+localhost
+
+[test]
+w1 ansible_ssh_user=ansiblesrv
+
+[prod]
+w2 ansible_ssh_user=ansiblesrv
+w3 ansible_ssh_user=ansiblesrv
+

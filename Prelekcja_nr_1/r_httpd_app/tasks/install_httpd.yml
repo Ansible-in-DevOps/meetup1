@@ -1,0 +1,38 @@
+---
+
+- name: Install apache httpd on RHEL distribution
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - httpd 
+    - unzip
+  when: ansible_os_family == "RedHat"
+
+- name: Install apache httpd on Debian distribution
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - apache2
+    - unzip
+  when: ansible_os_family == "Debian"
+
+- name: Start and enable apache on RedHat distribution
+  become: yes
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Start and enable apache on Debian distribution
+  become: yes
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
