@@ -260,6 +260,7 @@ apache2 | SUCCESS => {
 9. Zmiany na wielu serwerach.
 
 ````bash
+aido@ansible-server-local:~$ cd /opt/local/ansible
 aido@ansible-server-local:/opt/local/ansible$ cat update_www.yml 
 ---
 - hosts: apache
