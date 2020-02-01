@@ -1,7 +1,7 @@
 # meetup1 
-AiDO Meetup#1 - https://www.youtube.com/playlist?list=PL-2nM3otnXgqjiDs5otZChqqJbCm5hnUR
+AiDO Meetup#1 - https://www.meetup.com/pl-PL/Ansible-in-DevOps-Torun-Bydgoszcz/events/nfpfjryznbvb/
 
-Youtube - https://www.meetup.com/pl-PL/Ansible-in-DevOps-Torun-Bydgoszcz/events/nfpfjryznbvb/
+Youtube - https://www.youtube.com/playlist?list=PL-2nM3otnXgqjiDs5otZChqqJbCm5hnUR
 
 # Prelekcja nr 1 -> Czym jest Ansible?
 
